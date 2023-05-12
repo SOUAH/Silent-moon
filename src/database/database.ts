@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
 import Logger from "../config/logger";
+import config from "../config/env/config";
 
 export async function connectToDb(): Promise<void> {
   Logger.info("connecting to db");
-  await mongoose.connect(
-    "mongodb+srv://Admin:Samsa123.@meditation.lepokpr.mongodb.net/?retryWrites=true&w=majority"
-  );
+  await mongoose.connect(config.mongoDbURL);
   Logger.info("connected to db");
 }
 

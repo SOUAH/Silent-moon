@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import { User } from "../interfaces/user";
 import bcrypt from "bcryptjs";
 
+//mapping stuff in from db and store them in model so I can use them in my app
 const UserSchema: Schema = new Schema( //to specify the type of fields
   {
     username: {

@@ -1,6 +1,6 @@
 import { Document } from "mongoose";
 export interface User extends Document {
-  //object that I will be using inside of mu code, specific docs from my collection which is user
+  //object that I will be using inside of my code, specific docs from my collection which is user
   username: string;
   email: string;
   password: string;

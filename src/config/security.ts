@@ -7,10 +7,11 @@ import UserModel from "../models/user-model";
 
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: config.jwtSecret,
+  secretOrKey: config.jwtSecret,//DECODING JWT
 };
 
-passport.use(
+//configuring passport(authentication of requests), check if my jwt is valid
+passport.use(//package for autorization and working with jwt, check headers, encode...
   new JwtStrategy(opts, async (jwt_payload, done) => {
     try {
       const user = await UserModel.findById(jwt_payload.id);

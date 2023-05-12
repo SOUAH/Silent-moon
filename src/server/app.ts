@@ -17,7 +17,7 @@ export async function startServer() {
 
   app.use(cors());//cross origin of requests coming to the app(limiting who can access my app)
 
-  app.use(passport.initialize());
+  app.use(passport.initialize());//package for
 
   // Serve static files from the 'public' folder
   app.use(express.static("public"));

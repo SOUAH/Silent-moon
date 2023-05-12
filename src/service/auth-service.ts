@@ -68,16 +68,16 @@ class AuthService {
 
   async forgotPassword(email: string): Promise<void> {
     try {
-      const user = await UserModel.findOne({ email });
+      const user = await UserModel.findOne({ email });//check if user with email exists in db
 
       if (!user) {
         throw new ApiError(ApiErrorTypeEnum.NOT_FOUND, "Not found");
       }
 
-      const token = crypto.randomBytes(32).toString("hex");
+      const token = crypto.randomBytes(32).toString("hex");//generating a random code, id for request
       user.passwordResetToken = token;
       user.passwordResetExpires = new Date(Date.now() + 3600000); // 1 hour
-      await user.save();
+      await user.save();//save the exipration code, date and time in db
 
       const resetUrl = `http://localhost:3000/auth/reset-password.html?token=${token}`; //when user click on this in the email it will redirect him to the html file in path/auth folder
 

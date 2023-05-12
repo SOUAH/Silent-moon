@@ -37,26 +37,6 @@ class UserController {
     }
   }
 
-  // async createUser(
-  //   req: Request,
-  //   res: Response,
-  //   next: NextFunction
-  // ): Promise<void> {
-  //   //always in controllers I have this line, telling me to wait for this function and it will return void, void is a type and it's empty so Its an empty type, Its is a signal that says Im finished
-  //   Logger.info(`Create user request`);
-  //   try {
-  //     const requestBody = req.body;
-
-  //     const user = await userService.insert(requestBody); //Im waiting for this function to return what it promised
-  //     res.status(200).json(user);
-  //   } catch (error) {
-  //     Logger.error(
-  //       `Error found in ${__filename} - create method: ${error.message}`
-  //     );
-  //     next(error);
-  //   }
-  // }
-
   async putUser(
     req: Request,
     res: Response,

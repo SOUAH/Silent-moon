@@ -26,9 +26,9 @@ class MeditationService {
     }
   }
 
-  async insert(data: any): Promise<Meditation> {
+  async insert(data: any): Promise<Meditation> {//data is sent from postman
     try {
-      return await MeditationModel.create(data);
+      return await MeditationModel.create(data);//adding and saving stuff to mdb collection
     } catch (error) {
       Logger.error(
         `Error found in ${__filename} - insert method: ${error.message}`
