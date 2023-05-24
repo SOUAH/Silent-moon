@@ -4,9 +4,11 @@ import passport from "passport";
 
 const router = Router();
 
-router.use(passport.authenticate("jwt", { session: false }));//adding authorization, all the endpoints will require authorization header
+router.use(passport.authenticate("jwt", { session: false })); //adding authorization, all the endpoints will require authorization header
 
 router.get("/", userController.getAll);
+
+router.get("/current-user", userController.getCurrentlyLoggedUser);
 
 router.get("/:id", userController.getUserById);
 

@@ -6,7 +6,7 @@ import { errorHandlingMiddleware } from "./middlewares/error-handling-middleware
 import { connectToDb } from "../database/database";
 import passport from "passport";
 import "../config/security";
-import cors from 'cors';
+import cors from "cors";
 
 export async function startServer() {
   await connectToDb(); //connecting to database
@@ -15,9 +15,9 @@ export async function startServer() {
   app.use(bodyParser.json()); //body
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  app.use(cors());//cross origin of requests coming to the app(limiting who can access my app)
+  app.use(cors()); //cross origin of requests coming to the app(limiting who can access my app)
 
-  app.use(passport.initialize());//package for
+  app.use(passport.initialize()); //package for authentication
 
   // Serve static files from the 'public' folder
   app.use(express.static("public"));

@@ -3,6 +3,11 @@ import Logger from "../config/logger";
 import { User } from "../interfaces/user";
 import userService from "../service/user-service";
 import { sendEmail } from "../config/mail-config";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import {
+  ApiError,
+  ApiErrorTypeEnum,
+} from "../server/middlewares/error-handling-middleware";
 
 class UserController {
   async getUserById(
@@ -13,6 +18,32 @@ class UserController {
     Logger.info(`Find one user`);
     try {
       const { id } = req.params;
+      const user: User = await userService.findOne(id);
+      res.status(200).json(user);
+    } catch (error) {
+      Logger.error(
+        `Error found in ${__filename} - findOne method: ${error.message}`
+      );
+      next(error);
+    }
+  }
+  async getCurrentlyLoggedUser(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    Logger.info(`find current logged user`);
+    try {
+      const jwtToken: string = req.headers.authorization.split(" ")[1]; //extract token from authorization header(remove the bearer token by using the space)
+
+      const jwtTokenDecoded = jwt.decode(jwtToken); //payload
+
+      if (typeof jwtTokenDecoded === "string") {
+        //jwtTokenDecoded can be type string or payload, if its string it means we got wrong jwt in request
+        throw new ApiError(ApiErrorTypeEnum.UNAUTHORIZED, "Wrong jwt format");
+      }
+
+      const { id } = jwtTokenDecoded;
       const user: User = await userService.findOne(id);
       res.status(200).json(user);
     } catch (error) {
